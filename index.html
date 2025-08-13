@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sai Rental Collection - Availability Checker</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff9db; padding: 20px; }
+    .available { color: green; font-weight: bold; }
+    .unavailable { color: red; font-weight: bold; }
+    table { border-collapse: collapse; margin-top: 15px; width: 100%; }
+    th, td { border: 1px solid black; padding: 8px; }
+    th { background: #eee; }
+  </style>
+</head>
+<body>
+  <h2>Sai Rental Collection - Availability Checker</h2>
+  <label>Dress Code: </label>
+  <input type="text" id="dressCode" placeholder="Enter code"><br><br>
+  
+  <label>Pickup Date: </label>
+  <input type="date" id="pickupDate"><br><br>
+
+  <button onclick="checkAvailability()">Check Availability</button>
+  <div id="result"></div>
+  <div id="history"></div>
+
+  <script>
+    const BACKEND_URL = "https://script.google.com/macros/s/AKfycbzDc3LxdqJCvLncPeZLjfgTIh51C8fBeryIJ5Qiy4TEruun7RCE-oxjj4oJr8cbf7nTKA/exec"; // ends with /exec
+
+    async function checkAvailability() {
+      const dressCode = document.getElementById("dressCode").value.trim();
+      const pickupDate = document.getElementById("pickupDate").value;
+      const resultEl = document.getElementById("result");
+      const historyEl = document.getElementById("history");
+
+      resultEl.innerHTML = "";
+      historyEl.innerHTML = "";
+
+      if (!dressCode || !pickupDate) {
+        resultEl.textContent = "⚠ Please enter both fields.";
+        return;
+      }
+
+      try {
+        const url = `${BACKEND_URL}?dressCode=${encodeURIComponent(dressCode)}&pickupDate=${encodeURIComponent(pickupDate)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (data.status === "available") {
+          resultEl.innerHTML = `<p class="available">✅ Available</p>`;
+        } else if (data.status === "unavailable") {
+          resultEl.innerHTML = `<p class="unavailable">❌ Unavailable</p>`;
+          let table = "<table><tr><th>Customer</th><th>Pickup</th><th>Drop</th><th>Mobile</th></tr>";
+          data.customers.forEach(c => {
+            table += `<tr><td>${c.name}</td><td>${c.pickup}</td><td>${c.drop}</td><td>${c.mobile}</td></tr>`;
+          });
+          table += "</table>";
+          historyEl.innerHTML = table;
+        } else {
+          resultEl.textContent = "Unexpected response.";
+        }
+      } catch (err) {
+        console.error(err);
+        resultEl.textContent = "Error contacting server. Check console.";
+      }
+    }
+  </script>
+</body>
+</html>
