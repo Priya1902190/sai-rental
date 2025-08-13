@@ -1,28 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Sai Rental Collection - Availability Checker</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #fff9db; padding: 20px; }
-    .available { color: green; font-weight: bold; }
-    .unavailable { color: red; font-weight: bold; }
-    table { border-collapse: collapse; margin-top: 15px; width: 100%; }
-    th, td { border: 1px solid black; padding: 8px; }
-    th { background: #eee; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sai Rental Collection - Availability Checker</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff9db;
+  }
+
+  /* Header Image */
+  .header {
+    position: relative;
+    text-align: center;
+    background-color: yellow;
+  }
+  .header img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .header h1 {
+    position: absolute;
+  }
+
+  /* Main Form */
+  .container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+  }
+  h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    text-align: left;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #000;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  button {
+    background-color: rgb(247, 225, 182);
+    padding: 10px 20px;
+    border: 2px solid black;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s;
+  }
+  button:hover {
+    background-color: #fff158;
+  }
+
+  /* Availability Message */
+  .available {
+    color: green;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  .unavailable {
+    color: red;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+
+  /* Table Styling */
+  table {
+    border-collapse: collapse;
+    margin-top: 15px;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+  th {
+    background: #eee;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.5rem; }
+    input, button { font-size: 0.9rem; }
+  }
+</style>
 </head>
 <body>
-  <h2>Sai Rental Collection - Availability Checker</h2>
-  <label>Dress Code: </label>
-  <input type="text" id="dressCode" placeholder="Enter code"><br><br>
-  
-  <label>Pickup Date: </label>
-  <input type="date" id="pickupDate"><br><br>
 
+<!-- Header Section -->
+<div class="header">
+  <img src="SAI RENTAL COLLECTION (1).png" alt="Sai Rental Collection">
+
+</div>
+
+<!-- Main Form -->
+<div class="container">
+  <h2>Check Bookings</h2>
+  
+  <label for="dressCode">Enter Dress Code:</label>
+  <input type="text" id="dressCode" placeholder="Enter code">
+  
+  <label for="pickupDate">Enter Date:</label>
+  <input type="date" id="pickupDate">
+  
   <button onclick="checkAvailability()">Check Availability</button>
+  
   <div id="result"></div>
   <div id="history"></div>
+</div>
 
   <script>
     const BACKEND_URL = "https://script.google.com/macros/s/AKfycbzDc3LxdqJCvLncPeZLjfgTIh51C8fBeryIJ5Qiy4TEruun7RCE-oxjj4oJr8cbf7nTKA/exec"; // ends with /exec
