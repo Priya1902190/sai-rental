@@ -1,1 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sai Rental Collection - Dress Booking Form</title>
+  <style>
+    body {
+      background: #fff9db;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+   .header-img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .container {
+      max-width: 450px;
+      margin: 20px auto 40px auto;
+      background: #fff;
+      padding: 30px 25px 20px 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-size: 0.98rem;
+    }
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      margin-bottom: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    .hidden {
+      display: none;
+    }
+    .btn {
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 0;
+      width: 100%;
+      border-radius: 4px;
+      font-size: 1rem;
+      margin-top: 18px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #388e3c;
+    }
+    @media (max-width: 600px) {
+      .header-img {
+        max-width: 98vw;
+      }
+      .container {
+        padding: 18px 6px 15px 6px;
+      }
+      h2 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
 
+    <img src="images/SAI RENTAL COLLECTION (1).png" alt="Sai Rental Collection Header" class="header-img">
+
+  <div class="container">
+    <h2>Sai Rental Collection - Dress Booking Form</h2>
+    <form action= "https://script.google.com/macros/s/AKfycbyCZzXSLUKEuco7pYzS8jYXkQcSwi0exLVWNR5nkzVVlwBOZYnVYZEbImJjtDfg-yZtSA/exec" method="POST">
+
+      <label for="dressCode">Dress Code:</label>
+     <input type="text" id="Dress Code " name="Dress Code" maxlength="12" required>
+
+      <label for="customerName">Customer Name:</label>
+      <input type="text" id="customerName" name="customerName" required>
+
+      <label for="dressStyle">Dress Style:</label>
+      <select id="dressStyle" name="dressStyle" required onchange="handleDressStyleChange(this.value)">
+        <option value="">Select a style</option>
+        <option value="Bridal Lehenga">Bridal Lehenga</option>
+        <option value="Western Dress">Western Dress</option>
+        <option value="Traditional Dress">Traditional Dress</option>
+        <option value="Garba Dress">Garba Dress</option>
+        <option value="Others">Others</option>
+      </select>
+
+      <div id="otherDressDiv" class="hidden">
+        <label for="otherDressStyle">Please specify other dress style:</label>
+        <input type="text" id="otherDressStyle" name="otherDressStyle">
+      </div>
+
+      <label for="Adhaar">Aadhaar Number:</label>
+      <input type="text" id="Adhaar" name="Adhaar" maxlength="12" required>
+
+      <label for="bookingDate">Booking Date:</label>
+      <input type="date" id="bookingDate" name="bookingDate" required>
+
+      <label for="pickupDate">Pick-Up Date:</label>
+      <input type="date" id="pickupDate" name="pickupDate" required>
+
+      <label for="dropDate">Drop Date:</label>
+      <input type="date" id="dropDate" name="dropDate" required>
+
+      <label for="advance">Advance Payment Amount (₹):</label>
+      <input type="number" id="advance" name="advance" min="0" required>
+
+      <label for="mobile">Mobile Number:</label>
+      <input type="number" id="mobile" name="mobile" maxlength="10" required>
+
+      <button type="submit" onclick="submitBooking()" class="btn">Submit Booking</button>
+    </form>
+  </div>
+    
+
+<div id="bookingStatus"></div>
+
+  <script>
+    function handleDressStyleChange(value) {
+      const otherDiv = document.getElementById("otherDressDiv");
+      if (value === "Others") {
+        otherDiv.classList.remove("hidden");
+      } else {
+        otherDiv.classList.add("hidden");
+      }
+    }
+
+   function submitBooking() {
+    const form = document.getElementById("bookingForm");
+    const formData = new FormData(form);
+
+    fetch("https://script.google.com/macros/s/AKfycbyCZzXSLUKEuco7pYzS8jYXkQcSwi0exLVWNR5nkzVVlwBOZYnVYZEbImJjtDfg-yZtSA/exec", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("bookingStatus").innerHTML =
+            `<p style="color:green;font-weight:bold;">✅ ${data.message}</p>`;
+    })
+    .catch(err => {
+        console.error(err);
+        document.getElementById("bookingStatus").innerHTML =
+            `<p style="color:red;font-weight:bold;">❌ Booking failed. Please try again.</p>`;
+    });
+}
+  </script>
+</body>
+</html>
