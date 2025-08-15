@@ -83,14 +83,14 @@
 </head>
 <body>
 
-    <img src="Images\SAI RENTAL COLLECTION (1).png" alt="Sai Rental Collection Header" class="header-img">
+    <img src="images/SAI RENTAL COLLECTION (1).png" alt="Sai Rental Collection Header" class="header-img">
 
   <div class="container">
     <h2>Sai Rental Collection - Dress Booking Form</h2>
-    <form action= "https://script.google.com/macros/s/AKfycbyCZzXSLUKEuco7pYzS8jYXkQcSwi0exLVWNR5nkzVVlwBOZYnVYZEbImJjtDfg-yZtSA/exec" method="POST">
+    <form action= "https://script.google.com/macros/s/AKfycbyER95aEfkQn8CzlzYi5EqRomt74GNiu6awnDcCf_hQyTR4MYfb-K7RSbCQJSYIReomkg/exec" method="POST">
 
       <label for="dressCode">Dress Code:</label>
-     <input type="text" id="Dress Code " name="Dress Code" maxlength="12" required>
+      <input type="text" id="dressCode" name="dressCode" required>
 
       <label for="customerName">Customer Name:</label>
       <input type="text" id="customerName" name="customerName" required>
@@ -103,6 +103,7 @@
         <option value="Traditional Dress">Traditional Dress</option>
         <option value="Garba Dress">Garba Dress</option>
         <option value="Others">Others</option>
+        
       </select>
 
       <div id="otherDressDiv" class="hidden">
@@ -111,7 +112,8 @@
       </div>
 
       <label for="Adhaar">Aadhaar Number:</label>
-      <input type="text" id="Adhaar" name="Adhaar" maxlength="12" required>
+      <input type="text" id="aadhaarNumber" name="aadhaarNumber" maxlength="12" required>
+
 
       <label for="bookingDate">Booking Date:</label>
       <input type="date" id="bookingDate" name="bookingDate" required>
@@ -123,10 +125,10 @@
       <input type="date" id="dropDate" name="dropDate" required>
 
       <label for="advance">Advance Payment Amount (₹):</label>
-      <input type="number" id="advance" name="advance" min="0" required>
+      <input type="number" id="advance" name="advance" required>
 
       <label for="mobile">Mobile Number:</label>
-      <input type="number" id="mobile" name="mobile" maxlength="10" required>
+      <input type="number" id="mobileNumber" name="mobileNumber" maxlength="10" required>
 
       <button type="submit" onclick="submitBooking()" class="btn">Submit Booking</button>
     </form>
@@ -149,7 +151,7 @@
     const form = document.getElementById("bookingForm");
     const formData = new FormData(form);
 
-    fetch("https://script.google.com/macros/s/AKfycbyCZzXSLUKEuco7pYzS8jYXkQcSwi0exLVWNR5nkzVVlwBOZYnVYZEbImJjtDfg-yZtSA/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbyER95aEfkQn8CzlzYi5EqRomt74GNiu6awnDcCf_hQyTR4MYfb-K7RSbCQJSYIReomkg/exec", {
         method: "POST",
         body: formData
     })
