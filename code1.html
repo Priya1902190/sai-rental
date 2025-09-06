@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,26 +12,30 @@
       margin: 0;
       padding: 0;
     }
-   .header-img {
+
+    .header-img {
       width: 100%;
-      max-width: 100%;
-      height: auto;
+      height: 400px;
       display: block;
+      object-fit: cover;
     }
+
     .container {
       max-width: 450px;
       margin: 20px auto 40px auto;
       background: #fff;
       padding: 30px 25px 20px 25px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
     }
+
     h2 {
       text-align: center;
       margin-bottom: 25px;
       font-size: 1.2rem;
       font-weight: bold;
     }
+
     label {
       font-weight: bold;
       display: block;
@@ -38,6 +43,7 @@
       margin-bottom: 5px;
       font-size: 0.98rem;
     }
+
     input[type="text"],
     input[type="date"],
     input[type="number"],
@@ -50,9 +56,11 @@
       font-size: 1rem;
       box-sizing: border-box;
     }
+
     .hidden {
       display: none;
     }
+
     .btn {
       background: #4CAF50;
       color: #fff;
@@ -65,29 +73,36 @@
       cursor: pointer;
       transition: background 0.2s;
     }
+
     .btn:hover {
       background: #388e3c;
     }
+
     @media (max-width: 600px) {
       .header-img {
         max-width: 98vw;
       }
+
       .container {
         padding: 18px 6px 15px 6px;
       }
+
       h2 {
         font-size: 1rem;
       }
     }
   </style>
 </head>
+
 <body>
 
-    <img src="images/SAI RENTAL COLLECTION (1).png" alt="Sai Rental Collection Header" class="header-img">
+  <img src="images/SAI RENTAL COLLECTION (1).png" alt="Sai Rental Collection Header" class="header-img">
 
   <div class="container">
     <h2>Sai Rental Collection - Dress Booking Form</h2>
-    <form action= "https://script.google.com/macros/s/AKfycbyER95aEfkQn8CzlzYi5EqRomt74GNiu6awnDcCf_hQyTR4MYfb-K7RSbCQJSYIReomkg/exec" method="POST">
+    <form
+      action="https://script.google.com/macros/s/AKfycbyZjnM9Sj2RneLVFD0MV790434-9LinUcyAweD3k98nLJZwJ011lF_HxNQVtnUM1G82ew/exec"
+      method="POST">
 
       <label for="dressCode">Dress Code:</label>
       <input type="text" id="dressCode" name="dressCode" required>
@@ -103,26 +118,62 @@
         <option value="Traditional Dress">Traditional Dress</option>
         <option value="Garba Dress">Garba Dress</option>
         <option value="Others">Others</option>
-        
+
       </select>
+
+
 
       <div id="otherDressDiv" class="hidden">
         <label for="otherDressStyle">Please specify other dress style:</label>
         <input type="text" id="otherDressStyle" name="otherDressStyle">
       </div>
 
-      <label for="Adhaar">Aadhaar Number:</label>
-      <input type="number" id="aadhaarNumber" name="aadhaarNumber" maxlength="12" required>
+      <!-- Jewelry Section -->
+      <div class="form-section">
+        <!-- Dropdown -->
+        <label for="jewelryType">Select Jewelry:</label>
+        <select id="jewelryType" name="jewelryType" required>
+          <option value="">--Select--</option>
+          <option value="Bajubandh">Bajubandh</option>
+          <option value="Kamarbandh">Kamarbandh</option>
+          <option value="Kada">Kada</option>
+          <option value="Mangtikka">Mangtikka</option>
+          <option value="Necklace Set">Necklace Set</option>
+          <option value="Others">Others</option>
+        </select>
+
+        <!-- If Others → show input -->
+        <div id="otherJewelryDiv" style="display:none; margin-top:10px;">
+          <label for="otherJewelry">Enter Jewelry Name:</label>
+          <input type="text" id="otherJewelry" name="otherJewelry" placeholder="Enter Jewelry Name" />
+        </div>
+
+        <!-- Free Jewelry Checkboxes -->
+        <label style=" margin-top:15px; display:block;">Free Jewelry (Choose if applicable):</label>
+        <input type="checkbox" name="freeJewelry" value="Earrings"> Earrings<br>
+        <input type="checkbox" name="freeJewelry" value="Bindi"> Bindi<br>
+        <input type="checkbox" name="freeJewelry" value="Payal"> Payal<br>
+        <input type="checkbox" name="freeJewelry" value="OtherFree"> Other<br>
 
 
-      <label for="bookingDate">Booking Date:</label>
-      <input type="date" id="bookingDate" name="bookingDate" required>
 
-      <label for="pickupDate">Pick-Up Date:</label>
-      <input type="date" id="pickupDate" name="pickupDate" required>
+        <label for="Adhaar">Aadhaar Number:</label>
+        <input type="number" id="aadhaarNumber" name="aadhaarNumber" maxlength="12" required>
 
-      <label for="dropDate">Drop Date:</label>
-      <input type="date" id="dropDate" name="dropDate" required>
+
+        <label for="bookingDate">Booking Date:</label>
+        <input type="date" id="bookingDate" name="bookingDate" required>
+
+        <label for="pickupDate">Pick-Up Date:</label>
+        <input type="date" id="pickupDate" name="pickupDate" required>
+
+        <label for="dropDate">Drop Date:</label>
+        <input type="date" id="dropDate" name="dropDate" required>
+
+        <!-- Rent Price -->
+        <label for="rentprice" style="margin-top:15px; display:block;">Rent Price (₹):</label>
+        <input type="number" id="rentprice" name="rentprice" placeholder="Enter Rent Price" required />
+      </div>
 
       <label for="advance">Advance Payment Amount (₹):</label>
       <input type="number" id="advance" name="advance" required>
@@ -133,9 +184,9 @@
       <button type="submit" onclick="submitBooking()" class="btn">Submit Booking</button>
     </form>
   </div>
-    
 
-<div id="bookingStatus"></div>
+
+  <div id="bookingStatus"></div>
 
   <script>
     function handleDressStyleChange(value) {
@@ -147,25 +198,38 @@
       }
     }
 
-   function submitBooking() {
-    const form = document.getElementById("bookingForm");
-    const formData = new FormData(form);
 
-    fetch("https://script.google.com/macros/s/AKfycbyER95aEfkQn8CzlzYi5EqRomt74GNiu6awnDcCf_hQyTR4MYfb-K7RSbCQJSYIReomkg/exec", {
+    // Show input if "Others" is selected
+    document.getElementById("jewelryType").addEventListener("change", function () {
+      if (this.value === "Others") {
+        document.getElementById("otherJewelryDiv").style.display = "block";
+      } else {
+        document.getElementById("otherJewelryDiv").style.display = "none";
+      }
+    });
+
+
+
+    function submitBooking() {
+      const form = document.getElementById("bookingForm");
+      const formData = new FormData(form);
+
+      fetch("https://script.google.com/macros/s/AKfycbyZjnM9Sj2RneLVFD0MV790434-9LinUcyAweD3k98nLJZwJ011lF_HxNQVtnUM1G82ew/exec", {
         method: "POST",
         body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById("bookingStatus").innerHTML =
+      })
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("bookingStatus").innerHTML =
             `<p style="color:green;font-weight:bold;">✅ ${data.message}</p>`;
-    })
-    .catch(err => {
-        console.error(err);
-        document.getElementById("bookingStatus").innerHTML =
+        })
+        .catch(err => {
+          console.error(err);
+          document.getElementById("bookingStatus").innerHTML =
             `<p style="color:red;font-weight:bold;">❌ Booking failed. Please try again.</p>`;
-    });
-}
+        });
+    }
   </script>
 </body>
+
 </html>
