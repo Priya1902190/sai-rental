@@ -2,420 +2,570 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sai Rental Collection - Dress Booking Form 2026</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sai Rental Collection - Availability Checker</title>
 
   <style>
-    * {
-      box-sizing: border-box;
+   * {
+    box-sizing: border-box;
+    }
+
+    html {
+    width: 100%;
+    overflow-x: hidden;
     }
 
     body {
-      background: #fff9db;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      /* padding: 0; */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #fff9db;
+    overflow-x: hidden;
     }
 
     .header-img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
+    width: 100%;
+    height: auto;
+    min-height: 180px;
+    max-height: 500px;
+    display: block;
+    object-fit: cover;
     }
 
-   .container {
-      width: 90%;
-      max-width: 650px;
-      margin: -300px auto 40px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-      position: relative;
-      z-index: 10;
+    /* Main Container */
+    .container {
+    width: calc(100% - 40px);
+    max-width: 500px;
+    margin: -100px auto 40px;
+    padding: 25px;
+    background: white;
+    border-radius: 10px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
     }
-  
 
-    h2{
-      text-align: center;
-      padding-top: 5%;
-      margin-bottom: 5px;
-      font-size: 1.2rem;
-      font-weight: bold;
+    /* Heading */
+    h2 {
+    font-size: 1.8rem;
+    margin: 0 0 25px;
+    }
+
+    /* Labels */
+    label {
+    display: block;
+    font-weight: bold;
+    margin: 12px 0 6px;
+    text-align: left;
+    }
+
+    /* Inputs */
+    input[type="text"],
+    input[type="date"] {
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #000;
+    border-radius: 4px;
+    font-size: 1rem;
+    }
+
+    /* Buttons */
+    button {
+    max-width: 100%;
+    background-color: rgb(247, 225, 182);
+    padding: 10px 20px;
+    border: 2px solid black;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    }
+
+    button:hover:not(:disabled) {
+    background-color: #fff158;
+    }
+
+    button:disabled {
+    background-color: #d3d3d3;
+    color: #777;
+    border-color: #999;
+    cursor: not-allowed;
+    }
+
+    /* Result */
+    #result {
+    width: 100%;
+    margin-top: 15px;
+    overflow-wrap: break-word;
+    }
+
+    .available {
+    color: green;
+    font-weight: bold;
+    font-size: 1.1rem;
+    }
+
+    .unavailable,
+    .error {
+    color: red;
+    font-weight: bold;
+    margin-top: 15px;
+    }
+
+    /* Booking History */
+    #history {
+    width: 100%;
+    overflow-x: auto;
+    }
+
+    /* Table */
+    table {
+    width: 100%;
+    min-width: 420px;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    }
+
+    th,
+    td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+    white-space: nowrap;
+    }
+
+    th {
+    background: #eee;
+    }
+
+    /* TABLET */
+
+    @media (min-width: 601px) and (max-width: 1024px) {
+
+    .header-img {
+        max-height: 400px;
+    }
+
+    .container {
+        width: 80%;
+        max-width: 520px;
+        margin-top: -80px;
+    }
+
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+
+    .header-img {
+        height: auto;
+        min-height: 180px;
+        max-height: 250px;
+        object-fit: cover;
+    }
+
+    .container {
+        width: calc(100% - 24px);
+        max-width: 500px;
+        margin: -35px auto 25px;
+        padding: 20px 16px;
+        border-radius: 8px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
     }
 
     label {
-      font-weight: bold;
-      display: block;
-      margin-top: 10px;
-      margin-bottom: 5px;
-      font-size: 0.98rem;
+        font-size: 0.95rem;
     }
 
     input[type="text"],
-    input[type="date"],
-    input[type="number"],
-    select {
-      width: 100%;
-      padding: 8px 10px;
-      margin-bottom: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-      box-sizing: border-box;
-    }
-
-    /* Free Jewelry checkbox */
-    .free-jewelry {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 15px;
-      margin-bottom: 20px;
-      font-weight: bold;
-    }
-
-    .free-jewelry input[type="checkbox"] {
-      width: 18px;
-      height: 18px;
-      margin: 0;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .btn {
-      background: #4CAF50;
-      color: #fff;
-      border: none;
-      padding: 10px 0;
-      width: 100%;
-      border-radius: 4px;
-      font-size: 1rem;
-      margin-top: 18px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .btn:hover {
-      background: #388e3c;
-    }
-
-    .error-message {
-      color: red;
-      font-size: 0.85rem;
-      margin-top: 3px;
-      margin-bottom: 5px;
-      display: none;
-    }
-
-    .success-message {
-      display: none;
-      text-align: center;
-      background: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-      border-radius: 5px;
-      padding: 12px;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    .success-message.error {
-      background: #f8d7da;
-      color: #721c24;
-      border-color: #f5c6cb;
-    }
-
     input[type="date"] {
-        border: 1px solid #cfd4e3;
-        color: #434860;
+        height: 44px;
+        font-size: 0.95rem;
     }
 
-     
-      @media (min-width: 640px) {
-      form {
-        grid-template-columns: 1fr 1fr;
-        column-gap: 16px;
-        padding: 28px;
-      }
- 
-      h2,
-      button,
-      #bookingStatus,
-      label.checkbox-row,
-      label.full,
-      #idNumberBox {
-        grid-column: 1/ -1;
-      }
+    button {
+        width: 100%;
+        padding: 11px 15px;
+        font-size: 0.95rem;
     }
 
-    /* Mobile */
-@media (max-width: 639px) {
+    #bookDressBtn {
+        margin-top: 8px;
+    }
 
-  .header-img {
-    width: 100%;
-    height: auto;
-  }
+    .available,
+    .unavailable {
+        font-size: 1rem;
+    }
 
-  .container {
-    width: 94%;
-    margin: -80px auto 25px;
-    padding: 15px;
-  }
+    table {
+        font-size: 0.78rem;
+        min-width: 420px;
+    }
 
-  h2 {
-    font-size: 1.1rem;
-    padding-top: 5px;
-  }
-
-  label {
-    font-size: 0.9rem;
-  }
-
-  input,
-  select {
-    font-size: 14px;
-    padding: 8px;
-  }
-
-  .btn {
-    font-size: 15px;
-  }
-}
-
-/* Small Mobile */
-@media (max-width: 400px) {
-
-  .container {
-    width: 96%;
-    padding: 12px;
-    
-  }
-
-  h2 {
-    font-size: 1rem;
-  }
-
-  input,
-  select {
-    font-size: 14px;
-  }
-}
+    th,
+    td {
+        padding: 7px 6px;
+    }
+    }
 
 
-  </style>
+    /* SMALL MOBILE */
+
+    @media (max-width: 380px) {
+
+    .header-img {
+        min-height: 150px;
+        max-height: 200px;
+    }
+
+    .container {
+        width: calc(100% - 16px);
+        margin-top: -25px;
+        padding: 16px 12px;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+    }
+
+
+    /* LARGE DESKTOP */
+
+    @media (min-width: 1200px) {
+
+    .header-img {
+        max-height: 550px;
+    }
+
+    .container {
+        max-width: 500px;
+        margin-top: -190px;
+    }
+
+    }
+</style>
 </head>
 
 <body>
 
-  <img src="Image/image_v4.png"
-       alt="Sai Rental Collection Header"
-       class="header-img">
+  <div class="header">
+    <img src="Image/image_v4.png" alt="Sai Rental Collection Header" class="header-img">
+  </div>
 
   <div class="container">
 
-    <h2>Sai Rental Collection - Dress Booking Form 2026</h2>
+    <h2>Check Bookings</h2>
 
-    <form id="bookingForm">
+    <label for="dressCode">Enter Dress Code:</label>
+    <input type="text" id="dressCode" placeholder="Enter code">
 
-      <!-- Dress Code -->
-      <label for="dressCode">Dress Code:</label>
-      <input type="text" id="dressCode" name="dressCode" required>
+    <label for="pickupDate">Enter Date:</label>
+    <input type="date" id="pickupDate">
 
-      <!-- Customer Name -->
-      <label for="customerName">Customer Name:</label>
-      <input type="text" id="customerName" name="customerName" required>
+    <button type="button" id="checkBtn" onclick="checkAvailability()">
+      Check Availability
+    </button>
 
-      
-      <!-- Mobile Number -->
-      <label for="mobileNumber">Mobile Number:</label>
-      <input
-        type="text"
-        id="mobileNumber"
-        name="mobileNumber"
-        inputmode="numeric"
-        maxlength="10"
-        minlength="10"
-        pattern="[0-9]{10}"
-        placeholder="Enter mobile number"
-        required
-      >
-      <div id="mobileError" class="error-message">
-        Mobile number must be exactly 10 digits.
-      </div>
+    <button type="button"
+            id="bookDressBtn"
+            style="margin-top: 8px;"
+            onclick="openBookingForm()"
+            disabled>
+      Book Dress
+    </button>
 
-      <!-- Dress Style -->
-      <label for="dressStyle">Dress Style:</label>
-      <select id="dressStyle" name="dressStyle" required>
-        <option value="">--Select Style--</option>
-        <option value="Bridal Lehenga">Bridal Lehenga</option>
-        <option value="Western Dress">Western Dress</option>
-        <option value="Traditional Dress">Traditional Dress</option>
-        <option value="Garba Dress">Garba Dress</option>
-      </select>
+    <div id="result"></div>
+    <div id="history"></div>
 
-      <!-- Jewelry -->
-      <label for="jewelryType">Select Jewelry:</label>
-      <select id="jewelryType" name="jewelryType" required>
-        <option value="">--Select--</option>
-        <option value="Bajubandh">Bajubandh</option>
-        <option value="Kamarbandh">Kamarbandh</option>
-        <option value="Kada">Kada</option>
-        <option value="Mangtikka">Mangtikka</option>
-        <option value="Necklace Set">Necklace Set</option>
-      </select>
+  </div>
 
-      <!-- Free Jewelry -->
-      <label class="free-jewelry">
-        <input type="checkbox" name="freeJewelry" value="Earrings">
-        Free Jewelry
-      </label>
+  <script>
 
+    const BACKEND_URL =
+     "https://script.google.com/macros/s/AKfycbyakQpEMAev_TvR5iu5MfeZcD5B5Ac8qDiJ0MtrDWGFla0sTWsHvEYFftzqRSjB_PvS/exec";
 
-       <!-- ID Proof -->
-      <label for="idProof">ID Proof:</label>   
-      <select name="idType" id="idType" required>
-        <option value="">--Select ID Proof--</option>
-        <option value="Aadhaar Card">Aadhaar Card</option>
-        <option value="PAN Card">PAN Card</option>
-      </select>
-    </label>
+    const dressCodeInput = document.getElementById("dressCode");
+    const pickupDateInput = document.getElementById("pickupDate");
+    const resultEl = document.getElementById("result");
+    const historyEl = document.getElementById("history");
+    const bookDressBtn = document.getElementById("bookDressBtn");
+    const checkBtn = document.getElementById("checkBtn");
 
-      <!-- Booking Date -->
-      <label for="bookingDate">Booking Date:</label>
-      <input type="date" id="bookingDate" name="bookingDate"  maxlength="10" required>
+    let checkedDressCode = "";
+    let checkedPickupDate = "";
+    let dressAvailable = false;
 
-      <!-- Pick-Up Date -->
-      <label for="pickupDate">Pick-Up Date:</label>
-      <input type="date" id="pickupDate" name="pickupDate" maxlength="10" required>
+    async function checkAvailability() {
 
-      <!-- Drop Date -->
-      <label for="dropDate">Drop Date:</label>
-      <input type="date" id="dropDate" name="dropDate" required>
+      const dressCode = dressCodeInput.value.trim();
+      const pickupDate = pickupDateInput.value;
 
-      <!-- Payment Mode -->
-      <label for="PaymentMode">Payment Mode:</label> 
-        <select name="PaymentMode" required>
-          <option value="">--Select Payment Mode--</option>
-          <option value="Cash">Cash</option>
-          <option value="Online">Online</option>
-          <option value="Cash + Online">Cash + Online</option>
-        </select>
-      </label>
+      resultEl.innerHTML = "";
+      historyEl.innerHTML = "";
 
-      <!-- Rent Price -->
-      <label for="rentprice">Rent Price (₹):</label>
-      <input
-        type="text"
-        id="rentprice"
-        name="rentprice"
-        inputmode="numeric"
-        placeholder="Enter Rent Price"
-        required
-      />
+      bookDressBtn.disabled = true;
+      dressAvailable = false;
 
-      <!-- Advance Payment -->
-      <label for="advance">Advance Payment Amount (₹):</label>
-      <input
-        type="text"
-        id="advance"
-        name="advance"
-        inputmode="numeric"
-        required
-      >
-
-
-      <button type="submit" class="btn">
-        Submit Booking
-      </button>
-
-       <div id="bookingStatus" class="success-message">
-        Booking Successfully Submitted!
-      </div>
-
-     </form>
-    </div>
-
-    <script>
-      const BOOKING_URL =
-        "https://script.google.com/macros/s/AKfycbyakQpEMAev_TvR5iu5MfeZcD5B5Ac8qDiJ0MtrDWGFla0sTWsHvEYFftzqRSjB_PvS/exec";
-
-      const form = document.getElementById("bookingForm");
-      const mobileInput = document.getElementById("mobileNumber");
-      const mobileError = document.getElementById("mobileError");
-      const bookingStatus = document.getElementById("bookingStatus");
-      const submitBtn = form.querySelector("button[type='submit']");
-
-      function showStatus(type, text) {
-        bookingStatus.textContent = text;
-        bookingStatus.className = "success-message" + (type === "error" ? " error" : "");
-        bookingStatus.style.display = "block";
-        bookingStatus.scrollIntoView({ behavior: "smooth", block: "center" });
+      // Check empty fields
+      if (!dressCode && !pickupDate) {
+        resultEl.innerHTML =
+          '<p class="error">⚠ Please enter Dress Code and Date.</p>';
+        return;
       }
 
-      mobileInput.addEventListener("input", function () {
-        this.value = this.value.replace(/\D/g, "").slice(0, 10);
-        mobileError.style.display = this.value.length === 10 ? "none" : "block";
-      });
+      if (!dressCode) {
+        resultEl.innerHTML =
+          '<p class="error">⚠ Please enter Dress Code.</p>';
+        return;
+      }
 
-      form.addEventListener("submit", async function (event) {
-        event.preventDefault();
-        bookingStatus.style.display = "none";
+      if (!pickupDate) {
+        resultEl.innerHTML =
+          '<p class="error">⚠ Please select a Date.</p>';
+        return;
+      }
 
-        if (!/^\d{10}$/.test(mobileInput.value)) {
-          mobileError.style.display = "block";
-          return;
+      resultEl.innerHTML = "<p>Checking availability...</p>";
+      checkBtn.disabled = true;
+
+      try {
+
+        const url =
+          BACKEND_URL +
+          "?dressCode=" + encodeURIComponent(dressCode) +
+          "&pickupDate=" + encodeURIComponent(pickupDate);
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error("Server Error");
         }
-        mobileError.style.display = "none";
 
-        const pickup = document.getElementById("pickupDate").value;
-        const drop = document.getElementById("dropDate").value;
-        if (drop < pickup) {
-          showStatus("error", "Drop Date cannot be before Pick-Up Date.");
-          return;
+        const data = await response.json();
+
+        console.log("Backend Response:", data);
+
+
+        // AVAILABLE
+        if (data.status === "available") {
+
+          dressAvailable = true;
+          checkedDressCode = dressCode;
+          checkedPickupDate = pickupDate;
+
+          resultEl.innerHTML = `
+            <p class="available"> Dress is Available</p>
+            <p>
+              Dress Code: <strong>${escapeHTML(dressCode)}</strong><br>
+              Date: <strong>${formatDate(pickupDate)}</strong>
+            </p>
+          `;
+
+          bookDressBtn.disabled = false;
+          historyEl.innerHTML = "";
+
         }
 
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Submitting...";
 
-        try {
-          const response = await fetch(BOOKING_URL, {
-            method: "POST",
-            body: new URLSearchParams(new FormData(form))
-          });
+        // UNAVAILABLE
+        else if (data.status === "unavailable") {
 
-          if (!response.ok) {
-            throw new Error("Server error (HTTP " + response.status + ")");
-          }
+          dressAvailable = false;
+          bookDressBtn.disabled = true;
 
-          const data = await response.json();
-          console.log("Booking Response:", data);
+          resultEl.innerHTML = `
+            <p class="unavailable">Dress is Unavailable</p>
 
-          if (data.status === "success") {
-            showStatus("success", "Booking Successfully Submitted!");
-            form.reset();
-          } else if (data.status === "unavailable") {
-            showStatus("error", data.message || "This dress is already booked for the selected dates.");
+            <p>
+              Dress Code: <strong>${escapeHTML(dressCode)}</strong><br>
+              Date: <strong>${formatDate(pickupDate)}</strong>
+            </p>
+          `;
+
+
+          // Previous bookings
+          if (Array.isArray(data.customers) && data.customers.length > 0) {
+
+            let table = `
+              <table>
+                <tr>
+                  <th>Customer</th>
+                  <th>Pickup</th>
+                  <th>Drop</th>
+                  <th>Mobile</th>
+                </tr>
+            `;
+
+            data.customers.forEach(function(customer) {
+
+              table += `
+                <tr>
+                  <td>${escapeHTML(customer.name || "")}</td>
+                  <td>${escapeHTML(customer.pickup || "")}</td>
+                  <td>${escapeHTML(customer.drop || "")}</td>
+                  <td>${escapeHTML(customer.mobile || "")}</td>
+                </tr>
+              `;
+
+            });
+
+            table += "</table>";
+
+            historyEl.innerHTML = table;
+
           } else {
-            showStatus("error", "Booking failed: " + (data.message || "Unknown error"));
+
+            historyEl.innerHTML =
+              "<p>No booking details available.</p>";
+
           }
 
-        } catch (error) {
-          console.error("Booking Error:", error);
-          showStatus(
-            "error",
-            "Booking could not be confirmed. Please check the sheet before submitting again. (" + error.message + ")"
-          );
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Submit Booking";
         }
-      });
-    </script>
 
-  </body>
-  
+
+        // UNKNOWN RESPONSE
+        else {
+
+        console.error("Backend Error:", data);
+
+        resultEl.innerHTML = `
+            <p class="error">
+            ${escapeHTML(data.message || "Unexpected response from server.")}
+            </p>
+        `;
+
+        }
+
+      }
+
+      catch (error) {
+
+        console.error("Availability Error:", error);
+
+        resultEl.innerHTML = `
+          <p class="error">
+            Unable to check availability.
+          </p>
+
+          <p>Please try again.</p>
+        `;
+
+      }
+
+      finally {
+
+        checkBtn.disabled = false;
+
+        // Refresh page after 30 seconds
+        setTimeout(function() {
+          window.location.reload();
+        }, 30000);
+
+      }
+
+    }
+
+
+    // Open Booking Form
+    function openBookingForm() {
+
+      if (!dressAvailable) return;
+
+      const bookingURL =
+        "index2.html" +
+        "?dressCode=" + encodeURIComponent(checkedDressCode) +
+        "&pickupDate=" + encodeURIComponent(checkedPickupDate);
+
+      window.location.href = bookingURL;
+    }
+
+
+    // Format Date
+    function formatDate(dateString) {
+
+      const date = new Date(dateString + "T00:00:00");
+
+      return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      });
+
+    }
+
+
+    // Security
+    function escapeHTML(value) {
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    // Reset when Dress Code changes
+    dressCodeInput.addEventListener("input", function() {
+
+      dressAvailable = false;
+      checkedDressCode = "";
+      checkedPickupDate = "";
+
+      bookDressBtn.disabled = true;
+      resultEl.innerHTML = "";
+      historyEl.innerHTML = "";
+
+    });
+
+
+    // Reset when Date changes
+    pickupDateInput.addEventListener("change", function() {
+
+      dressAvailable = false;
+      checkedDressCode = "";
+      checkedPickupDate = "";
+
+      bookDressBtn.disabled = true;
+      resultEl.innerHTML = "";
+      historyEl.innerHTML = "";
+
+    });
+
+  </script>
+
+</body>
 </html>
+
+
