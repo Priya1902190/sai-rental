@@ -2,231 +2,570 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sai Rental Collection - Dress Booking Form</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sai Rental Collection - Availability Checker</title>
+
   <style>
+   * {
+    box-sizing: border-box;
+    }
+
+    html {
+    width: 100%;
+    overflow-x: hidden;
+    }
+
     body {
-      background: #fff9db;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #fff9db;
+    overflow-x: hidden;
     }
 
     .header-img {
-      width: 100%;
-      height: 400px;
-      display: block;
-      object-fit: cover;
+    width: 100%;
+    height: auto;
+    min-height: 180px;
+    max-height: 500px;
+    display: block;
+    object-fit: cover;
+    }
+
+    /* Main Container */
+    .container {
+    width: calc(100% - 40px);
+    max-width: 500px;
+    margin: -100px auto 40px;
+    padding: 25px;
+    background: white;
+    border-radius: 10px;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    }
+
+    /* Heading */
+    h2 {
+    font-size: 1.8rem;
+    margin: 0 0 25px;
+    }
+
+    /* Labels */
+    label {
+    display: block;
+    font-weight: bold;
+    margin: 12px 0 6px;
+    text-align: left;
+    }
+
+    /* Inputs */
+    input[type="text"],
+    input[type="date"] {
+    width: 100%;
+    height: 45px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #000;
+    border-radius: 4px;
+    font-size: 1rem;
+    }
+
+    /* Buttons */
+    button {
+    max-width: 100%;
+    background-color: rgb(247, 225, 182);
+    padding: 10px 20px;
+    border: 2px solid black;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    }
+
+    button:hover:not(:disabled) {
+    background-color: #fff158;
+    }
+
+    button:disabled {
+    background-color: #d3d3d3;
+    color: #777;
+    border-color: #999;
+    cursor: not-allowed;
+    }
+
+    /* Result */
+    #result {
+    width: 100%;
+    margin-top: 15px;
+    overflow-wrap: break-word;
+    }
+
+    .available {
+    color: green;
+    font-weight: bold;
+    font-size: 1.1rem;
+    }
+
+    .unavailable,
+    .error {
+    color: red;
+    font-weight: bold;
+    margin-top: 15px;
+    }
+
+    /* Booking History */
+    #history {
+    width: 100%;
+    overflow-x: auto;
+    }
+
+    /* Table */
+    table {
+    width: 100%;
+    min-width: 420px;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    }
+
+    th,
+    td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+    white-space: nowrap;
+    }
+
+    th {
+    background: #eee;
+    }
+
+    /* TABLET */
+
+    @media (min-width: 601px) and (max-width: 1024px) {
+
+    .header-img {
+        max-height: 400px;
     }
 
     .container {
-      max-width: 450px;
-      margin: 20px auto 40px auto;
-      background: #fff;
-      padding: 30px 25px 20px 25px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        width: 80%;
+        max-width: 520px;
+        margin-top: -80px;
+    }
+
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+
+    .header-img {
+        height: auto;
+        min-height: 180px;
+        max-height: 250px;
+        object-fit: cover;
+    }
+
+    .container {
+        width: calc(100% - 24px);
+        max-width: 500px;
+        margin: -35px auto 25px;
+        padding: 20px 16px;
+        border-radius: 8px;
     }
 
     h2 {
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 1.2rem;
-      font-weight: bold;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
     }
 
     label {
-      font-weight: bold;
-      display: block;
-      margin-top: 15px;
-      margin-bottom: 5px;
-      font-size: 0.98rem;
+        font-size: 0.95rem;
     }
 
     input[type="text"],
-    input[type="date"],
-    input[type="number"],
-    select {
-      width: 100%;
-      padding: 8px 10px;
-      margin-bottom: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-      box-sizing: border-box;
+    input[type="date"] {
+        height: 44px;
+        font-size: 0.95rem;
     }
 
-    .hidden {
-      display: none;
+    button {
+        width: 100%;
+        padding: 11px 15px;
+        font-size: 0.95rem;
     }
 
-    .btn {
-      background: #4CAF50;
-      color: #fff;
-      border: none;
-      padding: 10px 0;
-      width: 100%;
-      border-radius: 4px;
-      font-size: 1rem;
-      margin-top: 18px;
-      cursor: pointer;
-      transition: background 0.2s;
+    #bookDressBtn {
+        margin-top: 8px;
     }
 
-    .btn:hover {
-      background: #388e3c;
-    }
-
-    @media (max-width: 600px) {
-      .header-img {
-        max-width: 98vw;
-      }
-
-      .container {
-        padding: 18px 6px 15px 6px;
-      }
-
-      h2 {
+    .available,
+    .unavailable {
         font-size: 1rem;
-      }
     }
-  </style>
+
+    table {
+        font-size: 0.78rem;
+        min-width: 420px;
+    }
+
+    th,
+    td {
+        padding: 7px 6px;
+    }
+    }
+
+
+    /* SMALL MOBILE */
+
+    @media (max-width: 380px) {
+
+    .header-img {
+        min-height: 150px;
+        max-height: 200px;
+    }
+
+    .container {
+        width: calc(100% - 16px);
+        margin-top: -25px;
+        padding: 16px 12px;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+    }
+
+
+    /* LARGE DESKTOP */
+
+    @media (min-width: 1200px) {
+
+    .header-img {
+        max-height: 550px;
+    }
+
+    .container {
+        max-width: 500px;
+        margin-top: -190px;
+    }
+
+    }
+</style>
 </head>
 
 <body>
 
-  <img src="SAI RENTAL COLLECTION (1).png" alt="Sai Rental Collection Header" class="header-img">
-
-  <div class="container">
-    <h2>Sai Rental Collection - Dress Booking Form</h2>
-    <form
-      action="https://script.google.com/macros/s/AKfycbyZjnM9Sj2RneLVFD0MV790434-9LinUcyAweD3k98nLJZwJ011lF_HxNQVtnUM1G82ew/exec"
-      method="POST">
-
-      <label for="dressCode">Dress Code:</label>
-      <input type="text" id="dressCode" name="dressCode" required>
-
-      <label for="customerName">Customer Name:</label>
-      <input type="text" id="customerName" name="customerName" required>
-
-      <label for="dressStyle">Dress Style:</label>
-      <select id="dressStyle" name="dressStyle" required onchange="handleDressStyleChange(this.value)">
-        <option value="">Select a style</option>
-        <option value="Bridal Lehenga">Bridal Lehenga</option>
-        <option value="Western Dress">Western Dress</option>
-        <option value="Traditional Dress">Traditional Dress</option>
-        <option value="Garba Dress">Garba Dress</option>
-        <option value="Others">Others</option>
-
-      </select>
-
-
-
-      <div id="otherDressDiv" class="hidden">
-        <label for="otherDressStyle">Please specify other dress style:</label>
-        <input type="text" id="otherDressStyle" name="otherDressStyle">
-      </div>
-
-      <!-- Jewelry Section -->
-      <div class="form-section">
-        <!-- Dropdown -->
-      <label for="jewelryType">Select Jewelry:</label>
-        <select id="jewelryType" name="jewelryType" required>
-          <option value="">--Select--</option>
-          <option value="Bajubandh">Bajubandh</option>
-          <option value="Kamarbandh">Kamarbandh</option>
-          <option value="Kada">Kada</option>
-          <option value="Mangtikka">Mangtikka</option>
-          <option value="Necklace Set">Necklace Set</option>
-          <option value="Others">Others</option>
-        </select>
-
-        <!-- If Others → show input -->
-        <div id="otherJewelryDiv" style="display:none; margin-top:10px;">
-          <label for="otherJewelry">Enter Jewelry Name:</label>
-          <input type="text" id="otherJewelry" name="otherJewelry" placeholder="Enter Jewelry Name" />
-        </div>
-
-     <!-- Free Jewelry Checkboxes -->
-        <label style=" margin-top:15px; display:block;">Free Jewelry (Choose if applicable):</label>
-        <input type="checkbox" name="freeJewelry" value="Necklace set"> Necklace Set<br>
-
-
-
-        <label for="Adhaar">Aadhaar Number:</label>
-        <input type="number" id="aadhaarNumber" name="aadhaarNumber" maxlength="12" required>
-
-
-        <label for="bookingDate">Booking Date:</label>
-        <input type="date" id="bookingDate" name="bookingDate" required>
-
-        <label for="pickupDate">Pick-Up Date:</label>
-        <input type="date" id="pickupDate" name="pickupDate" required>
-
-        <label for="dropDate">Drop Date:</label>
-        <input type="date" id="dropDate" name="dropDate" required>
-
-        <!-- Rent Price -->
-        <label for="rentprice" style="margin-top:15px; display:block;">Rent Price (₹):</label>
-        <input type="number" id="rentprice" name="rentprice" placeholder="Enter Rent Price" required />
-      </div>
-
-      <label for="advance">Advance Payment Amount (₹):</label>
-      <input type="number" id="advance" name="advance" required>
-
-      <label for="mobile">Mobile Number:</label>
-      <input type="number" id="mobileNumber" name="mobileNumber" maxlength="10" required>
-
-      <button type="submit" onclick="submitBooking()" class="btn">Submit Booking</button>
-    </form>
+  <div class="header">
+    <img src="Image/image_v4.png" alt="Sai Rental Collection Header" class="header-img">
   </div>
 
+  <div class="container">
 
-  <div id="bookingStatus"></div>
+    <h2>Check Bookings</h2>
+
+    <label for="dressCode">Enter Dress Code:</label>
+    <input type="text" id="dressCode" placeholder="Enter code">
+
+    <label for="pickupDate">Enter Date:</label>
+    <input type="date" id="pickupDate">
+
+    <button type="button" id="checkBtn" onclick="checkAvailability()">
+      Check Availability
+    </button>
+
+    <button type="button"
+            id="bookDressBtn"
+            style="margin-top: 8px;"
+            onclick="openBookingForm()"
+            disabled>
+      Book Dress
+    </button>
+
+    <div id="result"></div>
+    <div id="history"></div>
+
+  </div>
 
   <script>
-    function handleDressStyleChange(value) {
-      const otherDiv = document.getElementById("otherDressDiv");
-      if (value === "Others") {
-        otherDiv.classList.remove("hidden");
-      } else {
-        otherDiv.classList.add("hidden");
+
+    const BACKEND_URL =
+     "https://script.google.com/macros/s/AKfycbyakQpEMAev_TvR5iu5MfeZcD5B5Ac8qDiJ0MtrDWGFla0sTWsHvEYFftzqRSjB_PvS/exec";
+
+    const dressCodeInput = document.getElementById("dressCode");
+    const pickupDateInput = document.getElementById("pickupDate");
+    const resultEl = document.getElementById("result");
+    const historyEl = document.getElementById("history");
+    const bookDressBtn = document.getElementById("bookDressBtn");
+    const checkBtn = document.getElementById("checkBtn");
+
+    let checkedDressCode = "";
+    let checkedPickupDate = "";
+    let dressAvailable = false;
+
+    async function checkAvailability() {
+
+      const dressCode = dressCodeInput.value.trim();
+      const pickupDate = pickupDateInput.value;
+
+      resultEl.innerHTML = "";
+      historyEl.innerHTML = "";
+
+      bookDressBtn.disabled = true;
+      dressAvailable = false;
+
+      // Check empty fields
+      if (!dressCode && !pickupDate) {
+        resultEl.innerHTML =
+          '<p class="error">⚠ Please enter Dress Code and Date.</p>';
+        return;
       }
+
+      if (!dressCode) {
+        resultEl.innerHTML =
+          '<p class="error">⚠ Please enter Dress Code.</p>';
+        return;
+      }
+
+      if (!pickupDate) {
+        resultEl.innerHTML =
+          '<p class="error">⚠ Please select a Date.</p>';
+        return;
+      }
+
+      resultEl.innerHTML = "<p>Checking availability...</p>";
+      checkBtn.disabled = true;
+
+      try {
+
+        const url =
+          BACKEND_URL +
+          "?dressCode=" + encodeURIComponent(dressCode) +
+          "&pickupDate=" + encodeURIComponent(pickupDate);
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error("Server Error");
+        }
+
+        const data = await response.json();
+
+        console.log("Backend Response:", data);
+
+
+        // AVAILABLE
+        if (data.status === "available") {
+
+          dressAvailable = true;
+          checkedDressCode = dressCode;
+          checkedPickupDate = pickupDate;
+
+          resultEl.innerHTML = `
+            <p class="available"> Dress is Available</p>
+            <p>
+              Dress Code: <strong>${escapeHTML(dressCode)}</strong><br>
+              Date: <strong>${formatDate(pickupDate)}</strong>
+            </p>
+          `;
+
+          bookDressBtn.disabled = false;
+          historyEl.innerHTML = "";
+
+        }
+
+
+        // UNAVAILABLE
+        else if (data.status === "unavailable") {
+
+          dressAvailable = false;
+          bookDressBtn.disabled = true;
+
+          resultEl.innerHTML = `
+            <p class="unavailable">Dress is Unavailable</p>
+
+            <p>
+              Dress Code: <strong>${escapeHTML(dressCode)}</strong><br>
+              Date: <strong>${formatDate(pickupDate)}</strong>
+            </p>
+          `;
+
+
+          // Previous bookings
+          if (Array.isArray(data.customers) && data.customers.length > 0) {
+
+            let table = `
+              <table>
+                <tr>
+                  <th>Customer</th>
+                  <th>Pickup</th>
+                  <th>Drop</th>
+                  <th>Mobile</th>
+                </tr>
+            `;
+
+            data.customers.forEach(function(customer) {
+
+              table += `
+                <tr>
+                  <td>${escapeHTML(customer.name || "")}</td>
+                  <td>${escapeHTML(customer.pickup || "")}</td>
+                  <td>${escapeHTML(customer.drop || "")}</td>
+                  <td>${escapeHTML(customer.mobile || "")}</td>
+                </tr>
+              `;
+
+            });
+
+            table += "</table>";
+
+            historyEl.innerHTML = table;
+
+          } else {
+
+            historyEl.innerHTML =
+              "<p>No booking details available.</p>";
+
+          }
+
+        }
+
+
+        // UNKNOWN RESPONSE
+        else {
+
+        console.error("Backend Error:", data);
+
+        resultEl.innerHTML = `
+            <p class="error">
+            ${escapeHTML(data.message || "Unexpected response from server.")}
+            </p>
+        `;
+
+        }
+
+      }
+
+      catch (error) {
+
+        console.error("Availability Error:", error);
+
+        resultEl.innerHTML = `
+          <p class="error">
+            Unable to check availability.
+          </p>
+
+          <p>Please try again.</p>
+        `;
+
+      }
+
+      finally {
+
+        checkBtn.disabled = false;
+
+        // Refresh page after 30 seconds
+        setTimeout(function() {
+          window.location.reload();
+        }, 30000);
+
+      }
+
     }
 
 
-    // Show input if "Others" is selected
-    document.getElementById("jewelryType").addEventListener("change", function () {
-      if (this.value === "Others") {
-        document.getElementById("otherJewelryDiv").style.display = "block";
-      } else {
-        document.getElementById("otherJewelryDiv").style.display = "none";
-      }
+    // Open Booking Form
+    function openBookingForm() {
+
+      if (!dressAvailable) return;
+
+      const bookingURL =
+        "index2.html" +
+        "?dressCode=" + encodeURIComponent(checkedDressCode) +
+        "&pickupDate=" + encodeURIComponent(checkedPickupDate);
+
+      window.location.href = bookingURL;
+    }
+
+
+    // Format Date
+    function formatDate(dateString) {
+
+      const date = new Date(dateString + "T00:00:00");
+
+      return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      });
+
+    }
+
+
+    // Security
+    function escapeHTML(value) {
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    // Reset when Dress Code changes
+    dressCodeInput.addEventListener("input", function() {
+
+      dressAvailable = false;
+      checkedDressCode = "";
+      checkedPickupDate = "";
+
+      bookDressBtn.disabled = true;
+      resultEl.innerHTML = "";
+      historyEl.innerHTML = "";
+
     });
 
 
+    // Reset when Date changes
+    pickupDateInput.addEventListener("change", function() {
 
-    function submitBooking() {
-      const form = document.getElementById("bookingForm");
-      const formData = new FormData(form);
+      dressAvailable = false;
+      checkedDressCode = "";
+      checkedPickupDate = "";
 
-      fetch("https://script.google.com/macros/s/AKfycbyZjnM9Sj2RneLVFD0MV790434-9LinUcyAweD3k98nLJZwJ011lF_HxNQVtnUM1G82ew/exec", {
-        method: "POST",
-        body: formData
-      })
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("bookingStatus").innerHTML =
-            `<p style="color:green;font-weight:bold;">✅ ${data.message}</p>`;
-        })
-        .catch(err => {
-          console.error(err);
-          document.getElementById("bookingStatus").innerHTML =
-            `<p style="color:red;font-weight:bold;">❌ Booking failed. Please try again.</p>`;
-        });
-    }
+      bookDressBtn.disabled = true;
+      resultEl.innerHTML = "";
+      historyEl.innerHTML = "";
+
+    });
+
   </script>
-</body>
 
+</body>
 </html>
+
+
